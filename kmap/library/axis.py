@@ -18,7 +18,9 @@ class Axis():
 
     @classmethod
     def init_from_hdf_list(cls, axis, num):
-
+        label, units, range_ = axis
+        if len(range_) > 2:
+            axis = [label, units, [range_[0], range_[-1]]]
         if Axis._is_correct_axis(axis):
             return cls(*axis, num)
 
@@ -44,7 +46,7 @@ class Axis():
 
         if not minimum < maximum:
             raise ValueError(
-                'axis minimum has to strictly smaller than maxmimum')
+                'axis minimum has to be strictly smaller than maxmimum')
 
         return True
 
